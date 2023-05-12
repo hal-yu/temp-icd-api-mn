@@ -40,6 +40,15 @@ def icdcode2(value, value2):
     else: 
         return filtered2.to_json(orient="records")    
     
+@app.route('/drugs/<value>/dose/<value2>/year/<value3>')
+def icdcode3(value, value2, value3):
+    filtered = df[df['NPROPNAME'] == value]
+    filtered2 = filtered[filtered['DOSAGE_FORM'] == value2]
+    filtered3 = filtered2[filtered2['LAUNCH_YEAR'] == int(value3)]
+    if len(filtered3) <= 0:
+        return 'This does not exist D:'
+    else: 
+        return filtered3.to_json(orient="records")    
 
 if __name__ == '__main__':
     app.run(debug=True)
